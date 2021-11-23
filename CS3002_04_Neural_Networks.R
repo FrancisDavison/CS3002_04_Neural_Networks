@@ -1,4 +1,4 @@
-#CS3002_04_Neural_Networks
+#CS3002_04_Neural_Networks_Instructions
 if((Sys.info()["nodename"])=="JANEWAY")
 {
   setwd("C:\\Users\\Janeway\\Dropbox\\Github\\CS3002_03_Classification")
@@ -9,3 +9,6 @@ if((Sys.info()["nodename"])=="PICARD")
   setwd("C:\\Users\\Picard\\Dropbox\\Github\\CS3002_03_Classification")
   print("Working directory set to C:\\Users\\Picard\\Dropbox\\Github\\CS3002_04_Neural_Networks")
 }
+
+#install.packages("neuralnet")
+library(neuralnet)
