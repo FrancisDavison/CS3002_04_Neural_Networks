@@ -45,3 +45,6 @@ predict_testNN$neurons
 predict_testNN$net.result
 predict_out=as.numeric(predict_testNN$net.result>0.5)
 predict_out
+
+#Assessed excercise answer:
+#It didn't learn the input correctly. It behaves exactly the same as the OR network, just with way higher errors
