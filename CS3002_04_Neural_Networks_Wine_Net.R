@@ -21,12 +21,20 @@ WineValueNorm <- (WineValue-min(WineValue))/(max(WineValue)-min(WineValue)) #Nor
 WineDataNorm <- (cbind(WineClass, WineValueNorm)) #cbind Class and Values back to one dataframe, then randomise with sample, then select rows 1:73 for training
 WineDataNormRand=WineDataNorm[sample(130,130),]
 WineDataTrain=WineDataNormRand[1:65,]
-WineDatTest=WineDataNormRand[65:130,]
+WineDataTest=WineDataNormRand[65:130,]
 
 library(neuralnet) #imports neuralnet library
 
 #set up neural net
 set.seed(2)
-NN=neuralnet(WineDataTrain[,1]~., WineDataTrain[,-1], hidden=c(3,3,3),threshold=0.001,stepmax=1e+05,linear.output=FALSE)
-plot(NN)
+NN=neuralnet(WineDataTrain[,1]~., WineDataTrain[,-1], hidden=c(3,3),threshold=0.001,stepmax=1e+05,linear.output=FALSE)
 
+predict_testNN=compute(NN,WineDataTest)
+predict_testNN$neurons
+predict_testNN$net.result
+predict_out=as.numeric(predict_testNN$net.result>0.5)
+ncorrect=sum(predict_out==WineDataTest[,1])
+n=length(WineData[,1])
+accuracy=ncorrect/n
+print(accuracy)
+plot(NN)
