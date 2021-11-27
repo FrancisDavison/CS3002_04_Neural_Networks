@@ -1,4 +1,4 @@
-#CS3002_04_Neural_Networks_Instructions
+#CS3002_04_Neural_Networks_XOR
 if((Sys.info()["nodename"])=="JANEWAY")
 {
   setwd("C:\\Users\\Janeway\\Dropbox\\Github\\CS3002_CS3002_04_Neural_Networks")
@@ -20,7 +20,6 @@ XORdat=cbind((trainout=rbind(0,1,1,0)),(trainin=rbind(c(1,1),c(1,-1),c(-1,1),c(-
 #fit neural network with no hidden layers
 set.seed(2)
 NN=neuralnet(XORdat[,1]~., XORdat[,-1], hidden=0, threshold=0.001, stepmax=1e+05,linear.output=FALSE)
-#hidden layer madness:c(10,10,10,10,10,10,10,10,10,10)
 #Visualise the neural net
 plot(NN)
 
