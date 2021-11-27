@@ -26,7 +26,7 @@ WineDataTest=WineDataNormRand[65:130,]
 library(neuralnet) #imports neuralnet library
 
 #set up neural net
-set.seed(2)
+set.seed(1)
 NN=neuralnet(WineDataTrain[,1]~., WineDataTrain[,-1], hidden=c(3,3),threshold=0.001,stepmax=1e+05,linear.output=FALSE)
 
 predict_testNN=compute(NN,WineDataTest)
