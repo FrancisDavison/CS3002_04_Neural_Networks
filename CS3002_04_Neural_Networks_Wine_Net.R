@@ -11,9 +11,9 @@ if((Sys.info()["nodename"])=="PICARD")
 }
 
 #import and setup data
-WineData=read.csv(".\\WineDataTrim.csv")
+WineData=read.csv(".\\WineDataTrim.csv") #Uses trimmed csv containing only needed values. Crazy unpredictable and un fixable errors occur when trying to select columns from Winedata2
 WineClass=WineData[,1]-1 #Select first column and subtract 1 from each value to make values in range 0-1 not 1-2
-WineValue=WineData[,-1]
+WineValue=WineData[,-1] #Select everything except forst column as WineVale
 
 #Noramlise the values in WineDataTrim
 WineValueNorm <- (WineValue-min(WineValue))/(max(WineValue)-min(WineValue)) #Normalise values (See notebook for explanation)
@@ -26,9 +26,11 @@ WineDataTest=WineDataNormRand[66:130,]
 
 library(neuralnet) #imports neuralnet library
 
-#set up neural net
-#set.seed(1)
-NN=neuralnet(WineDataTrain[,1]~., WineDataTrain[,-1], hidden=c(3,3),threshold=0.001,stepmax=1e+05,linear.output=FALSE)
+#set up neural nets
+set.seed(2)
+NN=neuralnet(WineDataTrain[,1]~., WineDataTrain[,-1], hidden=c(3,4,3),threshold=0.001,stepmax=1e+05,linear.output=FALSE)
+#accuracy highest and error GENERALLY lowest with hidden layers 3,4,3
+#I say generally because it will swinng wildly from 0.0009 to 1.5 for no apparent reason. Yay randomisation
 
 
 predict_testNN=compute(NN,WineDataTest)

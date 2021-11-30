@@ -13,38 +13,24 @@ if((Sys.info()["nodename"])=="PICARD")
 #install.packages("neuralnet")
 library(neuralnet)
 
-#===Define input and output data for XOR gate===
 #XOR gate input/output data
 XORdat=cbind((trainout=rbind(0,1,1,0)),(trainin=rbind(c(1,1),c(1,-1),c(-1,1),c(-1.-1))))
 
 #fit neural network with no hidden layers
-set.seed(2)
-NN=neuralnet(XORdat[,1]~., XORdat[,-1], hidden=0, threshold=0.001, stepmax=1e+05,linear.output=FALSE)
-#Visualise the neural net
-plot(NN)
-
-#check weights and biases
-NN$weights
-
-#test to see if network responds to input signal (1,1) with compute
-testin=rbind(c(1,1))
-predict_testNN=compute(NN,testin)
-
-#activate output neuron
-predict_testNN$net.result
-
-#calculate discreet class by thresholding at 0.5
-predict_out=as.numeric(predict_testNN$net.result>0.5)
-print(predict_out)
+set.seed(2) #Not sure what this does
+NN=neuralnet(XORdat[,1]~., XORdat[,-1], hidden=c(3,2), threshold=0.001, stepmax=1e+05,linear.output=FALSE)
+#hidden layers error lowest at c(3,2)
+#Threshold is the percepteron activation value
+#Stepmax is the maximum number of steps for training
+#linear output FALSE=Classification method, TRUE=Regression method (more accurate)
 
 #Present inputs and outputs as sequence
 #Set up input sequence
 testinseq=trainin
 predict_testNN=compute(NN,testinseq)
-predict_testNN$neurons
-predict_testNN$net.result
 predict_out=as.numeric(predict_testNN$net.result>0.5)
 predict_out
+plot(NN)
 
 #Assessed excercise answer:
-#It didn't learn the input correctly. It behaves exactly the same as the OR network, just with way higher errors
+#If the hidden layers is left at 0, the network will not be able to learn the weights correctly, however it learns the weights with the lowest error at hidden layers (3,2)
