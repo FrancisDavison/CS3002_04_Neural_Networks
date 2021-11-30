@@ -19,7 +19,7 @@ XORdat=cbind((trainout=rbind(0,1,1,0)),(trainin=rbind(c(1,1),c(1,-1),c(-1,1),c(-
 
 #fit neural network with no hidden layers
 set.seed(2) #Not sure what this does
-NN=neuralnet(XORdat[,1]~., XORdat[,-1], hidden=c(3,3), threshold=0.001, stepmax=1e+05,linear.output=FALSE, rep=2)
+NN=neuralnet(XORdat[,1]~., XORdat[,-1], hidden=c(3,2), threshold=0.001, stepmax=1e+05, linear.output=FALSE, rep=2)
 #Changing rep(number of epochs) from 1 to 2 decreases error, but use any more and the error increases again
 #hidden layers error lowest at c(3,2)
 #Threshold is the percepteron activation value
