@@ -28,10 +28,9 @@ library(neuralnet) #imports neuralnet library
 
 #set up neural nets
 set.seed(2)
-NN=neuralnet(WineDataTrain[,1]~., WineDataTrain[,-1], hidden=c(3,4,3),threshold=0.001,stepmax=1e+05,linear.output=FALSE)
+NN=neuralnet(WineDataTrain[,1]~., WineDataTrain[,-1], hidden=c(3,4,3),threshold=0.001,stepmax=1e+05,linear.output=FALSE, rep=3)
 #accuracy highest and error GENERALLY lowest with hidden layers 3,4,3
-#I say generally because it will swinng wildly from 0.0009 to 1.5 for no apparent reason. Yay randomisation
-
+#Increasing rep(epochs) will decrease the error and increase the accuracy, however this seems to be pseudo random as the error can be as high as 1+ sometimes
 
 predict_testNN=compute(NN,WineDataTest)
 predict_out=as.numeric(predict_testNN$net.result>0.5)
